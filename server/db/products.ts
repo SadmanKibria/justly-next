@@ -34,7 +34,24 @@ export function getProductCountryGroups({
   return cacheFn({ productId, userId });
 }
 
-export function getProducts(userId: string, { limit }: { limit?: number }) {
+export function getProductCustomization({
+  productId,
+  userId,
+}: {
+  productId: string;
+  userId: string;
+}) {
+  const cacheFn = dbCache(getProductCustomizationInternal, {
+    tags: [getIdTag(productId, CACHE_TAGS.products)],
+  });
+
+  return cacheFn({ productId, userId });
+}
+
+export function getProducts(
+  userId: string,
+  { limit }: { limit?: number } = {}
+) {
   //return getProductsInternal(userId, { limit });
   const cacheFn = dbCache(getProductsInternal, {
     tags: [getUserTag(userId, CACHE_TAGS.products)],
@@ -47,6 +64,14 @@ export function getProduct({ id, userId }: { id: string; userId: string }) {
     tags: [getIdTag(id, CACHE_TAGS.products)],
   });
   return cacheFn({ id, userId });
+}
+
+export function getProductCount(userId: string) {
+  const cacheFn = dbCache(getProductCountInternal, {
+    tags: [getUserTag(userId, CACHE_TAGS.products)],
+  });
+
+  return cacheFn(userId);
 }
 
 export async function createProduct(data: typeof ProductTable.$inferInsert) {
@@ -173,6 +198,25 @@ export async function updateCountryDiscounts(
   });
 }
 
+export async function updateProductCustomization(
+  data: Partial<typeof ProductCustomizationTable.$inferInsert>,
+  { productId, userId }: { productId: string; userId: string }
+) {
+  const product = await getProduct({ id: productId, userId });
+  if (product == null) return;
+
+  await db
+    .update(ProductCustomizationTable)
+    .set(data)
+    .where(eq(ProductCustomizationTable.productId, productId));
+
+  revalidateDbCache({
+    tag: CACHE_TAGS.products,
+    userId,
+    id: productId,
+  });
+}
+
 async function getProductCountryGroupsInternal({
   userId,
   productId,
@@ -213,6 +257,24 @@ async function getProductCountryGroupsInternal({
   });
 }
 
+async function getProductCustomizationInternal({
+  userId,
+  productId,
+}: {
+  userId: string;
+  productId: string;
+}) {
+  const data = await db.query.ProductTable.findFirst({
+    where: ({ id, clerkUserId }, { and, eq }) =>
+      and(eq(id, productId), eq(clerkUserId, userId)),
+    with: {
+      productCustomization: true,
+    },
+  });
+
+  return data?.productCustomization;
+}
+
 function getProductsInternal(userId: string, { limit }: { limit?: number }) {
   return db.query.ProductTable.findMany({
     where: ({ clerkUserId }, { eq }) => eq(clerkUserId, userId),
@@ -226,4 +288,13 @@ function getProductInternal({ id, userId }: { id: string; userId: string }) {
     where: ({ clerkUserId, id: idCol }, { eq, and }) =>
       and(eq(clerkUserId, userId), eq(idCol, id)),
   });
+}
+
+async function getProductCountInternal(userId: string) {
+  const counts = await db
+    .select({ productCount: count() })
+    .from(ProductTable)
+    .where(eq(ProductTable.clerkUserId, userId));
+
+  return counts[0]?.productCount ?? 0;
 }
