@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { clearFullCache } from "@/lib/cache";
+//import { clearFullCache } from "@/lib/cache";
 import {
   getProduct,
   getProductCountryGroups,
