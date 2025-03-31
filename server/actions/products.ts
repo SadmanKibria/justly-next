@@ -2,6 +2,7 @@
 
 import {
   productCountryDiscountsSchema,
+  productCustomizationSchema,
   productDetailsSchema,
 } from "@/schemas/products";
 import { auth } from "@clerk/nextjs/server";
@@ -10,7 +11,7 @@ import {
   createProduct as createProductDb,
   deleteProduct as deleteProductDb,
   updateProduct as updateProductDb,
-  updateCountryDiscounts as updateCountryDiscountsDd,
+  updateCountryDiscounts as updateCountryDiscountsDb,
   updateProductCustomization as updateProductCustomizationDb,
 } from "@/server/db/products";
 import { redirect } from "next/navigation";
@@ -108,7 +109,7 @@ export async function updateCountryDiscounts(
     }
   });
 
-  await updateCountryDiscountsDd(deleteIds, insert, { productId: id, userId });
+  await updateCountryDiscountsDb(deleteIds, insert, { productId: id, userId });
 
   return { error: false, message: "Country discounts saved" };
 }

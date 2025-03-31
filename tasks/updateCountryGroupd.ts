@@ -1,5 +1,5 @@
 import { db } from "@/drizzle/db";
-import countriesByDiscount from "@/data/countriesByDiscount.json";
+import countriesByDiscount from "@/app/data/countriesByDiscount.json";
 import { CountryGroupTable, CountryTable } from "@/drizzle/schema";
 import { sql } from "drizzle-orm";
 

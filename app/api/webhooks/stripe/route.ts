@@ -1,5 +1,8 @@
-import { env } from "@/data/env/server";
-import { getTierByPriceId, subscriptionTiers } from "@/data/subscriptionTiers";
+import { env } from "@/app/data/env/server";
+import {
+  getTierByPriceId,
+  subscriptionTiers,
+} from "@/app/data/subscriptionTiers";
 import { UserSubscriptionTable } from "@/drizzle/schema";
 import { updateUserSubscription } from "@/server/db/subscription";
 import { eq } from "drizzle-orm";

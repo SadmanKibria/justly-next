@@ -1,5 +1,5 @@
 import { Banner } from "@/components/Banner";
-import { env } from "@/data/env/server";
+import { env } from "@/app/data/env/server";
 import { getProductForBanner } from "@/server/db/products";
 import { createProductView } from "@/server/db/productViews";
 import { canRemoveBranding, canShowDiscountBanner } from "@/server/permissions";

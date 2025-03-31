@@ -42,7 +42,7 @@ export default async function EditProductPage({
         <TabsList className="bg-background/60">
           <TabsTrigger value="details">Details</TabsTrigger>
           <TabsTrigger value="countries">Country</TabsTrigger>
-          <TabsTrigger value="customization">Customization</TabsTrigger>
+          <TabsTrigger value="customization">Customisation</TabsTrigger>
         </TabsList>
         <TabsContent value="details">
           <DetailsTab product={product} />
@@ -125,7 +125,7 @@ async function CustomizationsTab({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Banner Customization</CardTitle>
+        <CardTitle className="text-xl">Banner Customisation</CardTitle>
       </CardHeader>
       <CardContent>
         <ProductCustomizationForm

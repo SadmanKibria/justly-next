@@ -151,7 +151,7 @@ function PricingCard({
         <Feature>Justly discounts</Feature>
         {canCustomizeBanner && <Feature>Banner customization</Feature>}
         {canAccessAnalytics && <Feature>Advanced analytics</Feature>}
-        {canRemoveBranding && <Feature>Remove Easy PPP branding</Feature>}
+        {canRemoveBranding && <Feature>Remove Justly branding</Feature>}
       </CardFooter>
     </Card>
   );

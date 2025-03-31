@@ -1,4 +1,4 @@
-import { env } from "@/data/env/client";
+import { env } from "@/app/data/env/client";
 
 export function Banner({
   message,

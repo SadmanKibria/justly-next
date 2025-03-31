@@ -4,7 +4,7 @@ import { ArrowRightIcon, CheckIcon } from "lucide-react";
 import Link from "next/link";
 import { NeonIcon } from "./_icons/Neon";
 import { ClerkIcon } from "./_icons/Clerk";
-import { subscriptionTiersInOrder } from "../data/subscriptionTiers";
+import { subscriptionTiersInOrder } from "@/app/data/subscriptionTiers";
 import {
   Card,
   CardContent,
@@ -13,9 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatCompactNumber } from "@/lib/formatter";
-import { cn } from "@/lib/utils";
+import { formatCompactNumber } from "@/lib/formatters";
 import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
 
 export default function HomePage() {
@@ -26,7 +26,7 @@ export default function HomePage() {
           Price Smarter, Sell bigger!
         </h1>
         <p className="text-lg lg:text-3xl max-w-screen-xl">
-          Optimize your product pricing across countries to maximize sales.
+          Optimise your product pricing across countries to maximise sales.
           Capture 85% of the untapped market with location-based dynamic pricing
         </p>
         <SignUpButton>
@@ -35,11 +35,10 @@ export default function HomePage() {
           </Button>
         </SignUpButton>
       </section>
-
       <section className="bg-primary text-primary-foreground">
         <div className="container py-16 flex flex-col gap-16 px-8 md:px-16">
           <h2 className="text-3xl text-center text-balance">
-            Trusted by the best companies
+            Trusted by the top companies
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-16">
             <Link href="https://neon.tech">
@@ -48,6 +47,7 @@ export default function HomePage() {
             <Link href="https://clerk.com">
               <ClerkIcon />
             </Link>
+
             <Link href="https://neon.tech">
               <NeonIcon />
             </Link>
@@ -57,7 +57,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       <section id="pricing" className=" px-8 py-16 bg-accent/5">
         <h2 className="text-4xl text-center text-balance font-semibold mb-8">
           Pricing software which pays for itself 45x over
@@ -68,7 +67,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
       <footer className="container pt-16 pb-8 flex flex-col sm:flex-row gap-8 sm:gap-4 justify-between items-start">
         <Link href="/">
           <Logo />
@@ -78,7 +76,7 @@ export default function HomePage() {
             <FooterLinkGroup
               title="Help"
               links={[
-                { label: "Justly Discounts", href: "#" },
+                { label: "PPP Discounts", href: "#" },
                 { label: "Discount API", href: "#" },
               ]}
             />
@@ -154,11 +152,21 @@ function PricingCard({
   const isMostPopular = name === "Standard";
 
   return (
-    <Card>
+    <Card
+      className={cn(
+        "relative shadow-none rounded-3xl overflow-hidden",
+        isMostPopular ? "border-accent border-2" : "border-none"
+      )}
+    >
+      {isMostPopular && (
+        <div className="bg-accent text-accent-foreground absolute py-1 px-10 -right-8 top-24 rotate-45 origin-top-right">
+          Most popular
+        </div>
+      )}
       <CardHeader>
         <div className="text-accent font-semibold mb-8">{name}</div>
         <CardTitle className="text-xl font-bold">
-          £{priceInCents / 100} /mo
+          ${priceInCents / 100} /mo
         </CardTitle>
         <CardDescription>
           {formatCompactNumber(maxNumberOfVisits)} pricing page visits/mo
@@ -179,7 +187,7 @@ function PricingCard({
           {maxNumberOfProducts}{" "}
           {maxNumberOfProducts === 1 ? "product" : "products"}
         </Feature>
-        <Feature>Justly discounts</Feature>
+        <Feature>PPP discounts</Feature>
         {canAccessAnalytics && <Feature>Advanced analytics</Feature>}
         {canRemoveBranding && <Feature>Remove Justly branding</Feature>}
         {canCustomizeBanner && <Feature>Banner customisation</Feature>}
