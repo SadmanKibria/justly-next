@@ -73,9 +73,9 @@ export function ProductCustomizationForm({
         <Banner
           message={formValues.locationMessage}
           mappings={{
-            country: "India",
-            coupon: "HALF-OFF",
-            discount: "50",
+            country: "",
+            coupon: "",
+            discount: "",
           }}
           customization={formValues}
           canRemoveBranding={canRemoveBranding}
