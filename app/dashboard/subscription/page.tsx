@@ -12,7 +12,7 @@ import {
   subscriptionTiers,
   subscriptionTiersInOrder,
   TierNames,
-} from "@/data/subscriptionTiers";
+} from "@/app/data/subscriptionTiers";
 import { formatCompactNumber } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import {
@@ -29,7 +29,7 @@ import { CheckIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 export default async function SubscriptionPage() {
-  const { userId, redirectToSignIn } = auth();
+  const { userId, redirectToSignIn } = await auth();
   if (userId == null) return redirectToSignIn();
   const tier = await getUserSubscriptionTier(userId);
   const productCount = await getProductCount(userId);

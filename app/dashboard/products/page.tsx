@@ -1,9 +1,9 @@
 import { getProducts } from "@/server/db/products";
 import { auth } from "@clerk/nextjs/server";
-import { NoProducts } from "./_components/NoProducts";
+import { NoProducts } from "../_components/NoProducts";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ProductGrid } from "./_components/ProductGrid";
+import { ProductGrid } from "@/app/dashboard/_components/ProductGrid";
 import { PlusIcon } from "lucide-react";
 
 export default async function Products() {

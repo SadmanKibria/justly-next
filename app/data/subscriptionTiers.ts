@@ -16,7 +16,7 @@ export const subscriptionTiers = {
   },
   Basic: {
     name: "Basic",
-    priceInCents: 1900,
+    priceInCents: 1000,
     maxNumberOfProducts: 5,
     maxNumberOfVisits: 10000,
     canAccessAnalytics: true,
@@ -26,7 +26,7 @@ export const subscriptionTiers = {
   },
   Standard: {
     name: "Standard",
-    priceInCents: 4900,
+    priceInCents: 1500,
     maxNumberOfProducts: 30,
     maxNumberOfVisits: 100000,
     canAccessAnalytics: true,
@@ -36,7 +36,7 @@ export const subscriptionTiers = {
   },
   Premium: {
     name: "Premium",
-    priceInCents: 9900,
+    priceInCents: 2000,
     maxNumberOfProducts: 50,
     maxNumberOfVisits: 1000000,
     canAccessAnalytics: true,

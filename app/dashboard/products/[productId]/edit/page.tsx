@@ -1,6 +1,6 @@
 import { CountryDiscountsForm } from "@/app/dashboard/_components/forms/CountryDiscountsForm";
 import { ProductCustomizationForm } from "@/app/dashboard/_components/forms/ProductCustomizationForm";
-import { ProductDetailsForm } from "@/app/dashboard/_components/forms/ProductDeailsForm";
+import { ProductDetailsForm } from "@/app/dashboard/_components/forms/ProductDetailsForm";
 import { PageWithBackButton } from "@/app/dashboard/_components/PageWithBackButton";
 import {
   Card,
@@ -27,7 +27,7 @@ export default async function EditProductPage({
   params: { productId: string };
   searchParams: { tab?: string };
 }) {
-  const { userId, redirectToSignIn } = auth();
+  const { userId, redirectToSignIn } = await auth();
   if (userId == null) return redirectToSignIn();
 
   const product = await getProduct({ id: productId, userId });
